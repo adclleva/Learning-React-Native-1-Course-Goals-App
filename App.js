@@ -11,10 +11,9 @@ export default function App() {
 
   const addGoalHander = () => {
     // setCourseGoals([...courseGoals, enteredGoal]);
-    // ththe curretGoals is basically the previous or current state the way you want to look at it
+    // the curretGoals is basically the previous or current state the way you want to look at it
     setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
     setEnteredGoal("");
-    console.log(courseGoals);
   };
 
   return (
@@ -30,7 +29,11 @@ export default function App() {
       </View>
       <View>
         {courseGoals.map((courseGoal, index) => {
-          return <Text key={index + courseGoal}>{courseGoal}</Text>;
+          return (
+            <View style={styles.listItem} key={index + courseGoal}>
+              <Text>{courseGoal}</Text>
+            </View>
+          );
         })}
       </View>
     </View>
@@ -55,5 +58,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     padding: 10,
+  },
+  listItem: {
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "#ccc",
+    borderColor: "#000",
+    borderWidth: 1,
   },
 });
