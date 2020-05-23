@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState("");
@@ -27,7 +34,8 @@ export default function App() {
         />
         <Button title="Add" onPress={addGoalHander} />
       </View>
-      <View>
+      <ScrollView>
+        {/* by default the scrollview is vertcical */}
         {courseGoals.map((courseGoal, index) => {
           return (
             <View style={styles.listItem} key={index + courseGoal}>
@@ -35,7 +43,7 @@ export default function App() {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 }
