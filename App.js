@@ -30,7 +30,7 @@ export default function App() {
       </View>
       <View>
         {courseGoals.map((courseGoal, index) => {
-          return <Text key={index}>{courseGoal}</Text>;
+          return <Text key={index + courseGoal}>{courseGoal}</Text>;
         })}
       </View>
     </View>
