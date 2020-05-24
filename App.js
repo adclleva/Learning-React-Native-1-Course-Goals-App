@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -16,26 +17,49 @@ export default function App() {
     setEnteredGoal(enteredText);
   };
 
-  const addGoalHander = () => {
+  const addGoalHandler = () => {
     // setCourseGoals([...courseGoals, enteredGoal]);
     // the curretGoals is basically the previous or current state the way you want to look at it
-    setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
+    let newGoal = {
+      goal: enteredGoal,
+      id: Math.random().toString() + enteredGoal,
+    };
+    setCourseGoals((currentGoals) => {
+      // console.log("");
+      // console.log("courses", [...currentGoals, newGoal]);
+
+      return [...currentGoals, newGoal];
+    });
     setEnteredGoal("");
+    console.log("courseGoals", courseGoals);
+  };
+
+  const resetListHandler = () => {
+    setCourseGoals([]);
   };
 
   return (
     <View style={styles.screen}>
       <View style={styles.inputContainer}>
+        <Button title="Reset List" onPress={resetListHandler} />
         <TextInput
           placeholder="Course Goal"
           style={styles.input}
           onChangeText={goalInputHandler}
           value={enteredGoal}
         />
-        <Button title="Add" onPress={addGoalHander} />
+        <Button title="Add" onPress={addGoalHandler} />
       </View>
+      <FlatList
+        data={courseGoals}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Text style={styles.listItem}>{item.goal}</Text>
+        )}
+      />
+      {/* 
+      by default the scrollview is vertcical 
       <ScrollView>
-        {/* by default the scrollview is vertcical */}
         {courseGoals.map((courseGoal, index) => {
           return (
             <View style={styles.listItem} key={index + courseGoal}>
@@ -43,14 +67,15 @@ export default function App() {
             </View>
           );
         })}
-      </ScrollView>
+      </ScrollView> 
+      */}
     </View>
   );
 }
 
-/** it is good practice to create astylesheet object
+/** it is good practice to create a stylesheet object
  * we can create an object but it's better to use the StyleSheet class when there are
- * optimizatons in the future
+ * optimizations in the future
  */
 const styles = StyleSheet.create({
   screen: {
@@ -66,6 +91,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     padding: 10,
+    margin: 10,
   },
   listItem: {
     padding: 10,
