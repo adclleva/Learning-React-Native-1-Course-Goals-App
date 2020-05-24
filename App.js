@@ -20,11 +20,10 @@ export default function App() {
       return [...currentGoals, newGoal];
     });
 
-    console.log("courseGoals", courseGoals);
+    setIsAddModal(false);
   };
 
   const deleteGoalHandler = (goalId) => {
-    console.log(goalId);
     setCourseGoals((currentGoals) => {
       return currentGoals.filter((goal) => {
         return goal.id !== goalId;
@@ -36,13 +35,18 @@ export default function App() {
     setCourseGoals([]);
   };
 
+  const cancelAddGoalHandler = () => {
+    setIsAddModal(false);
+  };
+
   return (
     <View style={styles.screen}>
-      <Button title="Add" onPress={() => setIsAddModal(!isAddModal)} />
+      <Button title="Add" onPress={() => setIsAddModal(true)} />
       <GoalInput
         isAddModal={isAddModal}
         onAddGoal={addGoalHandler}
         onResetList={resetListHandler}
+        onCancel={cancelAddGoalHandler}
       />
       <FlatList
         data={courseGoals}

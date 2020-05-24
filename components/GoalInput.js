@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Button, TextInput, StyleSheet, Modal } from "react-native";
 
 const GoalInput = (props) => {
-  const { onAddGoal, onResetList, isAddModal } = props;
+  const { onAddGoal, onResetList, onCancel, isAddModal } = props;
   const [enteredGoal, setEnteredGoal] = useState("");
 
   const goalInputHandler = (enteredText) => {
@@ -17,31 +17,61 @@ const GoalInput = (props) => {
   return (
     <Modal visible={isAddModal} animationType="slide">
       <View style={styles.inputContainer}>
-        <Button title="Reset List" onPress={onResetList} />
+        <Button
+          style={styles.button}
+          title="Reset List"
+          onPress={onResetList}
+        />
         <TextInput
           placeholder="Course Goal"
           style={styles.input}
           onChangeText={goalInputHandler}
           value={enteredGoal}
         />
-        <Button title="Add" onPress={addGoalHandler} />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.button}>
+            <Button title="Cancel" color="red" onPress={onCancel} />
+          </View>
+          <View style={styles.button}>
+            <Button title="Add" onPress={addGoalHandler} />
+          </View>
+        </View>
       </View>
     </Modal>
   );
 };
 
+/** we implement flex within the input container to take in the
+ * full space of the parent container in order to get the items
+ * to be in the center
+ */
+
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
+
   input: {
     width: "80%",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
+    borderColor: "black",
+    borderWidth: 1,
     padding: 10,
     margin: 10,
+  },
+
+  /** we made sure to add a width so we can get the alignItems and justifyContent
+   * to work the
+   */
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "50%",
+  },
+  button: {
+    width: "40%",
   },
 });
 
