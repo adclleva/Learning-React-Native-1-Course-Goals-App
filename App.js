@@ -30,8 +30,13 @@ export default function App() {
     console.log("courseGoals", courseGoals);
   };
 
-  const deleteGoalHandler = (goal) => {
-    console.log(goal);
+  const deleteGoalHandler = (goalId) => {
+    console.log(goalId);
+    setCourseGoals((currentGoals) => {
+      return currentGoals.filter((goal) => {
+        return goal.id !== goalId;
+      });
+    });
   };
 
   const resetListHandler = () => {
@@ -45,7 +50,11 @@ export default function App() {
         data={courseGoals}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <GoalItem goal={item.goal} onDeleteGoal={deleteGoalHandler} />
+          <GoalItem
+            goal={item.goal}
+            id={item.id}
+            onDeleteGoal={deleteGoalHandler}
+          />
         )}
       />
     </View>
