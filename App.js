@@ -30,6 +30,10 @@ export default function App() {
     console.log("courseGoals", courseGoals);
   };
 
+  const deleteGoalHandler = (goal) => {
+    console.log(goal);
+  };
+
   const resetListHandler = () => {
     setCourseGoals([]);
   };
@@ -40,7 +44,9 @@ export default function App() {
       <FlatList
         data={courseGoals}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <GoalItem goal={item.goal} />}
+        renderItem={({ item }) => (
+          <GoalItem goal={item.goal} onDeleteGoal={deleteGoalHandler} />
+        )}
       />
     </View>
   );
