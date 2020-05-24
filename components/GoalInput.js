@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Button, TextInput, StyleSheet, Modal } from "react-native";
 
 const GoalInput = (props) => {
-  const { onAddGoal, onResetList, onCancel, isAddModal } = props;
+  const { onAddGoal, onCancel, isAddModal } = props;
   const [enteredGoal, setEnteredGoal] = useState("");
 
   const goalInputHandler = (enteredText) => {
@@ -17,11 +17,6 @@ const GoalInput = (props) => {
   return (
     <Modal visible={isAddModal} animationType="slide">
       <View style={styles.inputContainer}>
-        <Button
-          style={styles.button}
-          title="Reset List"
-          onPress={onResetList}
-        />
         <TextInput
           placeholder="Course Goal"
           style={styles.input}

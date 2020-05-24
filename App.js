@@ -41,11 +41,17 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <Button title="Add" onPress={() => setIsAddModal(true)} />
+      <View style={styles.buttonsContainer}>
+        <View style={styles.button}>
+          <Button title="Reset List" onPress={resetListHandler} color="red" />
+        </View>
+        <View style={styles.button}>
+          <Button title="Add" onPress={() => setIsAddModal(true)} />
+        </View>
+      </View>
       <GoalInput
         isAddModal={isAddModal}
         onAddGoal={addGoalHandler}
-        onResetList={resetListHandler}
         onCancel={cancelAddGoalHandler}
       />
       <FlatList
@@ -70,5 +76,13 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     padding: 50,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  button: {
+    width: "40%",
   },
 });
