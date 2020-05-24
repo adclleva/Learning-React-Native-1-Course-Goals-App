@@ -10,29 +10,23 @@ import {
 } from "react-native";
 
 import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState("");
   const [courseGoals, setCourseGoals] = useState([]);
 
-  const goalInputHandler = (enteredText) => {
-    setEnteredGoal(enteredText);
-  };
-
-  const addGoalHandler = () => {
+  const addGoalHandler = (enteredGoal) => {
     // setCourseGoals([...courseGoals, enteredGoal]);
-    // the curretGoals is basically the previous or current state the way you want to look at it
+    // the currentGoals is basically the previous or current state the way you want to look at it
     let newGoal = {
       goal: enteredGoal,
       id: Math.random().toString() + enteredGoal,
     };
-    setCourseGoals((currentGoals) => {
-      // console.log("");
-      // console.log("courses", [...currentGoals, newGoal]);
 
+    setCourseGoals((currentGoals) => {
       return [...currentGoals, newGoal];
     });
-    setEnteredGoal("");
+
     console.log("courseGoals", courseGoals);
   };
 
@@ -42,16 +36,7 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <Button title="Reset List" onPress={resetListHandler} />
-        <TextInput
-          placeholder="Course Goal"
-          style={styles.input}
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title="Add" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} onResetList={resetListHandler} />
       <FlatList
         data={courseGoals}
         keyExtractor={(item) => item.id}
@@ -68,17 +53,5 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     padding: 50,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  input: {
-    width: "80%",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    padding: 10,
-    margin: 10,
   },
 });
