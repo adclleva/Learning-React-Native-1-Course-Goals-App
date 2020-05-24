@@ -9,6 +9,8 @@ import {
   FlatList,
 } from "react-native";
 
+import GoalItem from "./components/GoalItem";
+
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState("");
   const [courseGoals, setCourseGoals] = useState([]);
@@ -53,22 +55,8 @@ export default function App() {
       <FlatList
         data={courseGoals}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={styles.listItem}>{item.goal}</Text>
-        )}
+        renderItem={({ item }) => <GoalItem goal={item.goal} />}
       />
-      {/* 
-      by default the scrollview is vertcical 
-      <ScrollView>
-        {courseGoals.map((courseGoal, index) => {
-          return (
-            <View style={styles.listItem} key={index + courseGoal}>
-              <Text>{courseGoal}</Text>
-            </View>
-          );
-        })}
-      </ScrollView> 
-      */}
     </View>
   );
 }
@@ -92,12 +80,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 10,
     margin: 10,
-  },
-  listItem: {
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: "#ccc",
-    borderColor: "#000",
-    borderWidth: 1,
   },
 });
